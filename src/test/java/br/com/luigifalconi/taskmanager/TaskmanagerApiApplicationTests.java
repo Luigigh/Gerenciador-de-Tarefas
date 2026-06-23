@@ -1,4 +1,4 @@
-package Task.Manager.API;
+package br.com.luigifalconi.taskmanager;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

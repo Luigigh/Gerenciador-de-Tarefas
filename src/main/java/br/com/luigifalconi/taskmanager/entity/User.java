@@ -27,9 +27,9 @@ public class User {
     private Long idUser;
 
     @NotBlank
-    private String firstname;
+    private String firstName;
     @NotNull
-    private String lastname;
+    private String lastName;
 
     @Column(unique = true)
     @Email

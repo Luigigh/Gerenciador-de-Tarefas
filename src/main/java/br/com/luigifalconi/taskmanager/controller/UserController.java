@@ -39,7 +39,6 @@ public class UserController {
         // Esse ze aqui efetuaria o salvamento do savedUser usando o userRepository no banco.
         return userResponseDTO;
 
-
     }
 
 }

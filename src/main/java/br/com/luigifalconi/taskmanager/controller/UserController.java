@@ -5,11 +5,13 @@ import br.com.luigifalconi.taskmanager.dto.request.UserRequestDTO;
 import br.com.luigifalconi.taskmanager.dto.response.UserResponseDTO;
 import br.com.luigifalconi.taskmanager.entity.User;
 import br.com.luigifalconi.taskmanager.mapper.UserMapper;
+import br.com.luigifalconi.taskmanager.repository.UserRepository;
 import br.com.luigifalconi.taskmanager.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.Getter;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -34,11 +36,46 @@ public class UserController {
         User savedUser = userService.createUser(user);
 
         //Esse zé aqui converte o User na userResponse
-        UserResponseDTO userResponseDTO = userMapper.toReponseDTO(savedUser);
+        UserResponseDTO userResponseDTO = userMapper.toResponseDTO(savedUser);
 
         // Esse ze aqui efetuaria o salvamento do savedUser usando o userRepository no banco.
         return userResponseDTO;
 
     }
+
+    @GetMapping("/{id}")
+    public UserResponseDTO getUserById(@PathVariable Long id){
+
+        User user = userService.findUserById(id);
+
+        return userMapper.toResponseDTO(user);
+
+    }
+
+
+    public List<UserResponseDTO> getAllUsers(){
+
+        List<User> users = userService.findAllUsers();
+
+        List<UserResponseDTO> userResponseDTOList = new ArrayList<>();
+
+        for (User user : users){
+
+            UserResponseDTO userDTO = userMapper.toResponseDTO(user);
+
+            userResponseDTOList.add(userDTO);
+
+        }
+
+        return userResponseDTOList;
+
+    }
+
+
+
+
+
+
+
 
 }

@@ -8,6 +8,8 @@ public enum RoleUser {
 
     DEVELOPER,
 
-    TESTER;
+    TESTER,
+
+    USER;
 
 }

@@ -41,4 +41,18 @@ public class UserMapper {
         return userResDTO;
 
     }
+
+    public UserUpdateDTO toUpdateDTO(User user){
+
+        UserUpdateDTO userUpdateDTO = new UserUpdateDTO();
+
+        userUpdateDTO.setId(user.getIdUser());
+        userUpdateDTO.setFirstname(user.getFirstName());
+        userUpdateDTO.setLastName(user.getLastName());
+        userUpdateDTO.setEmail(user.getEmail());
+        userUpdateDTO.setPhone(user.getPhone());
+        userUpdateDTO.setBirth(user.getDateBirth());
+
+        return userUpdateDTO;
+    }
 }

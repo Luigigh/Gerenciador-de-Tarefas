@@ -32,6 +32,15 @@ public class UserService {
         }
     }
 
+    public void validateEmailUserUpdate(User user){
+
+        Optional<User> userFound = userRepository.findUserByEmail(user.getEmail());
+
+        if (userFound.isPresent() && !userFound.get().getIdUser().equals(user.getIdUser())){
+            throw new RuntimeException("Email already in use!");
+        }
+    }
+
     public User createUser(User user) {
 
         validateEmailUser(user);
@@ -56,5 +65,39 @@ public class UserService {
         return userRepository.findAll();
     }
 
+
+    public User updateUser(Long id, UserUpdateDTO userUpdateDTO){
+
+        
+        User userFound = userRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("User not found"));
+        
+        userFound.setFirstName(userUpdateDTO.getFirstname());
+        userFound.setLastName(userUpdateDTO.getLastName());
+        userFound.setEmail(userUpdateDTO.getEmail());
+        userFound.setPhone(userUpdateDTO.getPhone());
+        userFound.setDateBirth(userUpdateDTO.getBirth());
+
+        validateEmailUserUpdate(userFound);
+
+
+        return userRepository.save(userFound);
+    }
+
+    public User deleteUser(Long id){
+        User userFound = userRepository.findBy(id)
+        .orElseThrow(() -> new RuntimeException("User not found"));
+        
+        if (userFound.getStatus().equals(StatusUser.INACTIVE)){
+            throw new RuntimeException("User already deleted!");
+        }
+        
+        userFound.setStatus(StatusUser.INACTIVE);
+        
+        return userRepository.save(userFound);
+    }
+
+
+    
 
 }

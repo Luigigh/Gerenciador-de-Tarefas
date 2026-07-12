@@ -26,6 +26,13 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
+
+
+    @ApiOperation(summary = "Create a new user")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "User created successfully"),
+        @ApiResponse(responseCode = "400", description = "User not created")
+    })
     @PostMapping
     public UserResponseDTO createUser(@RequestBody UserRequestDTO userRequestDTO){
 
@@ -43,6 +50,13 @@ public class UserController {
 
     }
 
+
+
+    @ApiOperation(summary = "Get a user by id")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "User found successfully"),
+        @ApiResponse(responseCode = "404", description = "User not found")
+    })
     @GetMapping("/{id}")
     public UserResponseDTO getUserById(@PathVariable Long id){
 
@@ -53,6 +67,13 @@ public class UserController {
     }
 
 
+
+
+    @ApiOperation(summary = "Get all users")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Users found successfully"),
+        @ApiResponse(responseCode = "404", description = "Users not found")
+    })
     public List<UserResponseDTO> getAllUsers(){
 
         List<User> users = userService.findAllUsers();
@@ -69,6 +90,35 @@ public class UserController {
 
         return userResponseDTOList;
 
+    }
+
+
+    
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update a user by id")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "User updated successfully"),
+        @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    public UserResponseDTO updateUser(@PathVariable Long id, @RequestBody UserUpdateDTO userUpdateDTO){
+        User user = userMapper.toEntity(userUpdateDTO);
+        User updatedUser = userService.updateUser(user);
+        return userMapper.toResponseDTO(updatedUser);
+    }
+
+
+
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a user by id")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "User deleted successfully"),
+        @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    public UserResponseDTO deleteUser(@PathVariable Long id){
+        User deletedUser = userService.deleteUser(id);
+        return userMapper.toResponseDTO(deletedUser);
     }
 
 

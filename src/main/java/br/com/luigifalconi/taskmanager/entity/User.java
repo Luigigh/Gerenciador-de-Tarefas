@@ -83,7 +83,7 @@ public class User implements UserDetails{
     }
     @Override
     public boolean isEnabled() {
-        return status.equals(StatusUser.ACTIVE);
+        return StatusUser.ACTIVE.equals(status);
     }
 
 

@@ -1,5 +1,6 @@
 package br.com.luigifalconi.taskmanager.service;
 
+import br.com.luigifalconi.taskmanager.dto.request.UserUpdateDTO;
 import br.com.luigifalconi.taskmanager.entity.User;
 import br.com.luigifalconi.taskmanager.enums.RoleUser;
 import br.com.luigifalconi.taskmanager.enums.StatusUser;
@@ -85,7 +86,7 @@ public class UserService {
     }
 
     public User deleteUser(Long id){
-        User userFound = userRepository.findBy(id)
+        User userFound = userRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("User not found"));
         
         if (userFound.getStatus().equals(StatusUser.INACTIVE)){

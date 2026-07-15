@@ -1,6 +1,7 @@
 package br.com.luigifalconi.taskmanager.mapper;
 
 import br.com.luigifalconi.taskmanager.dto.request.UserRequestDTO;
+import br.com.luigifalconi.taskmanager.dto.request.UserUpdateDTO;
 import br.com.luigifalconi.taskmanager.dto.response.UserResponseDTO;
 import br.com.luigifalconi.taskmanager.entity.User;
 import org.springframework.stereotype.Component;

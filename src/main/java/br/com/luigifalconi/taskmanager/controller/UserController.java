@@ -2,12 +2,14 @@ package br.com.luigifalconi.taskmanager.controller;
 
 
 import br.com.luigifalconi.taskmanager.dto.request.UserRequestDTO;
+import br.com.luigifalconi.taskmanager.dto.request.UserUpdateDTO;
 import br.com.luigifalconi.taskmanager.dto.response.UserResponseDTO;
 import br.com.luigifalconi.taskmanager.entity.User;
 import br.com.luigifalconi.taskmanager.mapper.UserMapper;
-import br.com.luigifalconi.taskmanager.repository.UserRepository;
 import br.com.luigifalconi.taskmanager.service.UserService;
-import lombok.Getter;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class UserController {
 
 
 
-    @ApiOperation(summary = "Create a new user")
+    @Operation(summary = "Create a new user")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "User created successfully"),
         @ApiResponse(responseCode = "400", description = "User not created")
@@ -52,7 +54,7 @@ public class UserController {
 
 
 
-    @ApiOperation(summary = "Get a user by id")
+    @Operation(summary = "Get a user by id")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "User found successfully"),
         @ApiResponse(responseCode = "404", description = "User not found")
@@ -69,7 +71,7 @@ public class UserController {
 
 
 
-    @ApiOperation(summary = "Get all users")
+    @Operation(summary = "Get all users")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Users found successfully"),
         @ApiResponse(responseCode = "404", description = "Users not found")
@@ -102,8 +104,7 @@ public class UserController {
         @ApiResponse(responseCode = "404", description = "User not found")
     })
     public UserResponseDTO updateUser(@PathVariable Long id, @RequestBody UserUpdateDTO userUpdateDTO){
-        User user = userMapper.toEntity(userUpdateDTO);
-        User updatedUser = userService.updateUser(user);
+        User updatedUser = userService.updateUser(id, userUpdateDTO);
         return userMapper.toResponseDTO(updatedUser);
     }
 

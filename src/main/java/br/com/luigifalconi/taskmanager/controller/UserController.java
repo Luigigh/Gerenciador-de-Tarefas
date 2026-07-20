@@ -71,27 +71,25 @@ public class UserController {
 
 
 
+
+    @GetMapping
     @Operation(summary = "Get all users")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Users found successfully"),
-        @ApiResponse(responseCode = "404", description = "Users not found")
+            @ApiResponse(responseCode = "200", description = "Users found successfully"),
+            @ApiResponse(responseCode = "404", description = "Users not found")
     })
-    public List<UserResponseDTO> getAllUsers(){
+    public List<UserResponseDTO> getAllUsers() {
 
         List<User> users = userService.findAllUsers();
 
         List<UserResponseDTO> userResponseDTOList = new ArrayList<>();
 
-        for (User user : users){
-
+        for (User user : users) {
             UserResponseDTO userDTO = userMapper.toResponseDTO(user);
-
             userResponseDTOList.add(userDTO);
-
         }
 
         return userResponseDTOList;
-
     }
 
 

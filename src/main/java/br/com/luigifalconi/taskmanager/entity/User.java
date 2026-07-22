@@ -86,6 +86,4 @@ public class User implements UserDetails{
         return StatusUser.ACTIVE.equals(status);
     }
 
-
-
 }

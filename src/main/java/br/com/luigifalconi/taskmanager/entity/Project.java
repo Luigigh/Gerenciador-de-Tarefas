@@ -1,12 +1,13 @@
 package br.com.luigifalconi.taskmanager.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import br.com.luigifalconi.taskmanager.enums.StatusProject;
-import jakarta.annotation.Generated;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,6 +16,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,8 +43,9 @@ public class Project {
     @NotBlank
     private String description;
 
-    @NotBlank
-    private double budget;
+    @NotNull
+    @PositiveOrZero
+    private BigDecimal budget;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -54,7 +58,6 @@ public class Project {
 
     @Enumerated(EnumType.STRING)
     private StatusProject status;
-
 
     
 }

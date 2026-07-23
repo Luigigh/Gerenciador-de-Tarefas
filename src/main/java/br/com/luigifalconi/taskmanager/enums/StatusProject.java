@@ -1,17 +1,12 @@
 package br.com.luigifalconi.taskmanager.enums;
 
 public enum StatusProject {
-    
-    NOTSTARTED,
 
-    STARTED,
+    NOT_STARTED,
 
-    INPROGRESS,
-
-    COMPLETED,
+    IN_PROGRESS,
 
     REVIEW,
 
-    DONE
-
+    COMPLETED
 }

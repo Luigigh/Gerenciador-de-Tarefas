@@ -3,6 +3,7 @@ package br.com.luigifalconi.taskmanager.mapper;
 import org.springframework.stereotype.Component;
 
 import br.com.luigifalconi.taskmanager.dto.request.ProjectRequestDTO;
+import br.com.luigifalconi.taskmanager.dto.request.ProjectUpdateDTO;
 import br.com.luigifalconi.taskmanager.dto.response.ProjectResponseDTO;
 import br.com.luigifalconi.taskmanager.entity.Project;
 
@@ -39,6 +40,24 @@ public class ProjectMapper {
         projectResDTO.setStatus(project.getStatus());
 
         return projectResDTO;
+
+    }
+
+
+    public ProjectUpdateDTO toUpdateDTO(Project project){
+
+        ProjectUpdateDTO projectUpdateDTO = new ProjectUpdateDTO();
+
+        projectUpdateDTO.setIdProject(project.getIdProject());
+        projectUpdateDTO.setName(project.getName());
+        projectUpdateDTO.setDescription(project.getDescription());
+        projectUpdateDTO.setBudget(project.getBudget());
+        projectUpdateDTO.setStartDate(project.getStartDate());  
+        projectUpdateDTO.setExpectedFinalDate(project.getExpectedFinalDate());
+        projectUpdateDTO.setEndDate(project.getEndDate());
+        projectUpdateDTO.setStatus(project.getStatus());
+
+        return projectUpdateDTO;
 
     }
     

@@ -1,8 +1,7 @@
-package br.com.luigifalconi.taskmanager.dto.response;
+package br.com.luigifalconi.taskmanager.dto.request;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import br.com.luigifalconi.taskmanager.enums.StatusProject;
 import lombok.AllArgsConstructor;
@@ -16,17 +15,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProjectResponseDTO {
+public class ProjectUpdateDTO {
 
     private Long idProject;
 
     private String name;
 
-    private String descripton;
+    private String description;
 
-    private BigDecimal Budget;
-
-    private LocalDateTime createdAt;
+    private BigDecimal budget;
 
     private LocalDate startDate;
 
@@ -35,5 +32,5 @@ public class ProjectResponseDTO {
     private LocalDate endDate;
 
     private StatusProject status;
-
+    
 }

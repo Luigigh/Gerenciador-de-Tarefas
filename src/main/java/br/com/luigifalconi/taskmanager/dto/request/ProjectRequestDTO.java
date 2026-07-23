@@ -1,5 +1,6 @@
 package br.com.luigifalconi.taskmanager.dto.request;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import br.com.luigifalconi.taskmanager.enums.StatusProject;
@@ -20,7 +21,7 @@ public class ProjectRequestDTO {
 
     private String description;
 
-    private double budget;
+    private BigDecimal budget;
 
     private LocalDate startDate;
 

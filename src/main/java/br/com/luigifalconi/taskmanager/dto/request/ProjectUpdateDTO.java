@@ -17,8 +17,6 @@ import lombok.Setter;
 @Builder
 public class ProjectUpdateDTO {
 
-    private Long idProject;
-
     private String name;
 
     private String description;
@@ -32,5 +30,4 @@ public class ProjectUpdateDTO {
     private LocalDate endDate;
 
     private StatusProject status;
-    
 }

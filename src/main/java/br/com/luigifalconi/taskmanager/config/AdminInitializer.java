@@ -21,68 +21,72 @@ public class AdminInitializer {
 
 
     @Bean
-    CommandLineRunner createAdmin(UserRepository userRepository,
-                                  PasswordEncoder passwordEncoder,
-                                  ProjectRepository projectRepository) {
-    
-                                    return args -> {
+CommandLineRunner createAdmin(
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder,
+        ProjectRepository projectRepository
+) {
 
-                                        System.out.println("1 - Entrou no CommandLineRunner");
-                                
-                                        if (!userRepository.existsByRole(RoleUser.ADMIN)) {
-                                
-                                            System.out.println("2 - Vai criar ADMIN");
-                                
-                                            User admin = new User();
-                                
-                                            admin.setFirstName("Luigi");
-                                            admin.setLastName("Bruno");
-                                            admin.setEmail("Luigi@gmail.com");
-                                            admin.setPassword(passwordEncoder.encode("123456"));
-                                            admin.setDateBirth(LocalDate.of(2003, 10, 31));
-                                            admin.setPhone("5516999948765");
-                                            admin.setRole(RoleUser.ADMIN);
-                                            admin.setStatus(StatusUser.ACTIVE);
-                                
-                                            userRepository.save(admin);
-                                
-                                            System.out.println("ADMIN criado com sucesso!");
-                                
-                                        } else {
-                                
-                                            System.out.println("ADMIN já existe.");
-                                
-                                        }
+    return args -> {
+
+        System.out.println("Iniciando dados iniciais...");
+
+        // =========================
+        // CRIAR ADMIN
+        // =========================
+
+        if (!userRepository.existsByRole(RoleUser.ADMIN)) {
+
+            User admin = new User();
+
+            admin.setFirstName("Luigi");
+            admin.setLastName("Bruno");
+            admin.setEmail("Luigi@gmail.com");
+            admin.setPassword(passwordEncoder.encode("123456"));
+            admin.setDateBirth(LocalDate.of(2003, 10, 31));
+            admin.setPhone("5516999948765");
+            admin.setRole(RoleUser.ADMIN);
+            admin.setStatus(StatusUser.ACTIVE);
+
+            userRepository.save(admin);
+
+            System.out.println("ADMIN criado com sucesso!");
+
+        } else {
+
+            System.out.println("ADMIN já existe.");
+
+        }
 
 
-                                
-                                
-                                        if (!projectRepository.existsByStatus(StatusProject.NOT_STARTED)) {
-                                
-                                            System.out.println("Vai criar Projeto");
-                                
-                                            Project project = new Project();
-                                
-                                            project.setName("Projeto 1");
-                                            project.setDescription("Projeto inicial do TaskManager");
-                                            project.setBudget(new BigDecimal("0.0"));                                            
-                                            project.setExpectedFinalDate(LocalDate.of(2026, 9, 30));
-                                            project.setEndDate(null);
-                                            project.setStatus(StatusProject.NOT_STARTED);
-                                
-                                            projectRepository.save(project);
-                                
-                                            System.out.println("Projeto criado com sucesso!");
-                                
-                                        } else {
-                                
-                                            System.out.println("Projeto já existe.");
-                                
-                                        }
-                                
-                                    };
-    }
+        // =========================
+        // CRIAR PROJETO
+        // =========================
 
+        if (!projectRepository.existsByStatus(StatusProject.NOT_STARTED)) {
+
+            Project project = new Project();
+
+            project.setName("Projeto 1");
+            project.setDescription("Projeto inicial do TaskManager");
+            project.setBudget(BigDecimal.ZERO);
+            project.setStartDate(LocalDate.of(2026, 7, 23));
+            project.setExpectedFinalDate(LocalDate.of(2026, 9, 30));
+            project.setEndDate(null);
+            project.setStatus(StatusProject.NOT_STARTED);
+
+            projectRepository.save(project);
+
+            System.out.println("PROJETO criado com sucesso!");
+
+        } else {
+
+            System.out.println("PROJETO já existe.");
+
+        }
+
+    };
+}
 
 
 }

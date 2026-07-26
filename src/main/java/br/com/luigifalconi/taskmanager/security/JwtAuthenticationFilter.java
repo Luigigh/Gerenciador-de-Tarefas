@@ -26,8 +26,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.customUserDetailService = customUserDetailService;
     }
 
+
     @Override
-protected void doFilterInternal(
+        protected boolean shouldNotFilter(HttpServletRequest request) {
+
+        return request.getServletPath().startsWith("/auth/");
+        }
+
+    @Override
+        protected void doFilterInternal(
         HttpServletRequest request,
         HttpServletResponse response,
         FilterChain filterChain)

@@ -22,9 +22,9 @@ public class ProjectResponseDTO {
 
     private String name;
 
-    private String descripton;
+    private String description;
 
-    private BigDecimal Budget;
+    private BigDecimal budget;
 
     private LocalDateTime createdAt;
 
@@ -35,5 +35,4 @@ public class ProjectResponseDTO {
     private LocalDate endDate;
 
     private StatusProject status;
-
 }

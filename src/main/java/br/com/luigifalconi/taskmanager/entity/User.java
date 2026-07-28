@@ -10,6 +10,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,6 +27,12 @@ import java.time.LocalDateTime;
 @Builder
 @Table(name = "Users")
 public class User implements UserDetails{
+
+    @OneToMany(
+        mappedBy = "responsible",
+        cascade = CascadeType.ALL
+    )
+    private List<Task> tasks = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

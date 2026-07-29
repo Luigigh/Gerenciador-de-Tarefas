@@ -1,9 +1,11 @@
 package br.com.luigifalconi.taskmanager.config;
 
 import br.com.luigifalconi.taskmanager.entity.Project;
+import br.com.luigifalconi.taskmanager.entity.Task;
 import br.com.luigifalconi.taskmanager.enums.StatusProject;
+import br.com.luigifalconi.taskmanager.enums.StatusTask;
 import br.com.luigifalconi.taskmanager.repository.ProjectRepository;
-
+import br.com.luigifalconi.taskmanager.repository.TaskRepository;
 import br.com.luigifalconi.taskmanager.entity.User;
 import br.com.luigifalconi.taskmanager.enums.RoleUser;
 import br.com.luigifalconi.taskmanager.enums.StatusUser;
@@ -24,7 +26,8 @@ public class AdminInitializer {
 CommandLineRunner createAdmin(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
-        ProjectRepository projectRepository
+        ProjectRepository projectRepository,
+        TaskRepository taskRepository
 ) {
 
     return args -> {
@@ -83,6 +86,43 @@ CommandLineRunner createAdmin(
 
             System.out.println("PROJETO já existe.");
 
+        }
+
+
+        if (taskRepository.count() == 0) { 
+
+            System.out.println( "[INITIALIZER] Criando Task" ); 
+
+            User adminInicial = userRepository
+                .findUserByEmail("Luigi@gmail.com")
+                
+                .orElseThrow(() ->
+                new RuntimeException("Admin não encontrado")
+            );
+
+        Project projectInicial = projectRepository
+            .findById(1L)
+
+            .orElseThrow(() ->
+                new RuntimeException("Projeto não encontrado")
+        );
+            
+            Task task = new Task(); 
+            
+            task.setTitle( "Desenvolver tela de Login" ); 
+            task.setDescription( "Criar a interface de autenticação do sistema" ); 
+            task.setComment( "Task inicial criada automaticamente" ); 
+            task.setStartDate( LocalDate.now() ); 
+            task.setExpectedFinalDate( LocalDate.now().plusDays(7) ); task.setEndDate(null); 
+            task.setStatus( StatusTask.IN_PROGRESS ); 
+            task.setProject(projectInicial); 
+            task.setResponsible(adminInicial); 
+            
+            taskRepository.save(task); 
+            System.out.println( "[INITIALIZER] Task criada" ); 
+
+        } else { 
+            System.out.println( "[INITIALIZER] Já existem Tasks" ); 
         }
 
     };

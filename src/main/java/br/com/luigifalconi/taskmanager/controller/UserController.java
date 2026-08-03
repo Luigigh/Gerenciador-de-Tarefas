@@ -10,6 +10,9 @@ import br.com.luigifalconi.taskmanager.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -35,6 +38,7 @@ public class UserController {
         @ApiResponse(responseCode = "201", description = "User created successfully"),
         @ApiResponse(responseCode = "400", description = "User not created")
     })
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public UserResponseDTO createUser(@RequestBody UserRequestDTO userRequestDTO){
 
@@ -101,6 +105,7 @@ public class UserController {
         @ApiResponse(responseCode = "200", description = "User updated successfully"),
         @ApiResponse(responseCode = "404", description = "User not found")
     })
+    @PreAuthorize("hasRole('ADMIN')")
     public UserResponseDTO updateUser(@PathVariable Long id, @RequestBody UserUpdateDTO userUpdateDTO){
         User updatedUser = userService.updateUser(id, userUpdateDTO);
         return userMapper.toResponseDTO(updatedUser);
@@ -115,6 +120,7 @@ public class UserController {
         @ApiResponse(responseCode = "200", description = "User deleted successfully"),
         @ApiResponse(responseCode = "404", description = "User not found")
     })
+    @PreAuthorize("hasRole('ADMIN')")
     public UserResponseDTO deleteUser(@PathVariable Long id){
         User deletedUser = userService.deleteUser(id);
         return userMapper.toResponseDTO(deletedUser);

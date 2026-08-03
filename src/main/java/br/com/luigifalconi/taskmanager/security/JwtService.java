@@ -28,11 +28,11 @@ public class JwtService {
 
     public String generateToken(User user) {
         return Jwts.builder()
-                .subject(user.getEmail())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignKey())
-                .compact();
+            .subject(user.getEmail())
+            .issuedAt(new Date(System.currentTimeMillis()))
+            .expiration(new Date(System.currentTimeMillis() + expiration))
+            .signWith(getSignKey())
+            .compact();
     }
 
     private Claims extractAllClaims(String token) {

@@ -9,6 +9,8 @@ import br.com.luigifalconi.taskmanager.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class TaskController {
             @ApiResponse(responseCode = "400", description = "Task not created")
     })
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN, MANAGER')")
     public TaskResponseDTO createTask(
             @RequestBody TaskRequestDTO requestDTO) {
 

@@ -1,0 +1,344 @@
+{
+  "info": {
+    "_postman_id": "b7945eaa-48b6-4a45-a0e4-1bdf67830062",
+    "name": "TaskManager API",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56211065"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "LOGIN",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const response = pm.response.json();\r\n\r\npm.test(\"Login realizado com sucesso\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n\r\npm.test(\"JWT foi retornado\", function () {\r\n    pm.expect(response.token).to.exist;\r\n});\r\n\r\npm.collectionVariables.set(\"token\", response.token);\r\n\r\nconsole.log(\"JWT salvo:\", response.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"Luigi@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}auth/login",
+              "host": [
+                "{{baseUrl}}auth"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "GET ALL",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET BY ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Project",
+      "item": [
+        {
+          "name": "GET ALL",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET BY ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "// POST /projects e PUT /projects/1\r\n{\r\n  \"name\": \"Projeto Teste USER\",\r\n  \"description\": \"Teste de RBAC USER\",\r\n  \"budget\": 1000.00,\r\n  \"startDate\": \"2026-08-20\",\r\n  \"expectedFinalDate\": \"2026-09-20\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}projects",
+              "host": [
+                "{{baseUrl}}projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "item": [
+        {
+          "name": "GET ALL",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET BY ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "// POST /tasks e PUT /tasks/1\r\n{\r\n  \"title\": \"Task Teste USER\",\r\n  \"description\": \"Teste de RBAC USER\",\r\n  \"startDate\": \"2026-08-20\",\r\n  \"expectedFinalDate\": \"2026-08-30\",\r\n  \"status\": \"NOT_STARTED\",\r\n  \"priority\": \"MEDIUM\",\r\n  \"projectId\": 1,\r\n  \"responsibleId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}tasks/{{taskId}}",
+              "host": [
+                "{{baseUrl}}tasks"
+              ],
+              "path": [
+                "{{taskId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "exec": [
+          "const response = pm.response.json();\r",
+          "\r",
+          "pm.test(\"Login realizado com sucesso\", function () {\r",
+          "    pm.response.to.have.status(200);\r",
+          "});\r",
+          "\r",
+          "pm.test(\"Status code is 201\", function () {\r",
+          "    pm.response.to.have.status(201);\r",
+          "});\r",
+          "\r",
+          "pm.test(\"User without permission receives 403\", function () {\r",
+          "    pm.response.to.have.status(403);\r",
+          "});\r",
+          "\r",
+          "pm.test(\"JWT foi retornado\", function () {\r",
+          "    pm.expect(response.token).to.exist;\r",
+          "});\r",
+          "\r",
+          "pm.collectionVariables.set(\"token\", response.token);\r",
+          "\r",
+          "console.log(\"JWT salvo:\", response.token);"
+        ],
+        "type": "text/javascript"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "projectId",
+      "value": ""
+    },
+    {
+      "key": "taskId",
+      "value": ""
+    }
+  ]
+}

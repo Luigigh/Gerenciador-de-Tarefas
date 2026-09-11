@@ -1,6 +1,6 @@
 # Gerenciador de Tarefas — API
 
-Backend RESTful desenvolvido para gerenciamento de projetos, tarefas e usuários, integrando autenticação stateless via JWT e controle de acesso baseado em papéis (RBAC).
+Backend RESTful desenvolvido para gerenciamento de projetos, tarefas e usuários, integrando autenticação stateless via JWT, controle de acesso baseado em papéis (RBAC) e proteção ativa contra ataques de força bruta.
 
 > Repositório do front-end (React + TypeScript): [Gerenciador-de-Tarefas-Web](https://github.com/Luigigh/Gerenciador-de-Tarefas-Web)
 
@@ -10,17 +10,26 @@ Backend RESTful desenvolvido para gerenciamento de projetos, tarefas e usuários
 
 * **Linguagem:** Java 21
 * **Framework:** Spring Boot 3
-* **Segurança:** Spring Security + Auth0 Java-JWT
+* **Segurança:** Spring Security, JJWT (io.jsonwebtoken) e Bucket4j
 * **Persistência:** Spring Data JPA / Hibernate
 * **Banco de Dados:** MySQL 8
-* **Build tool:** Maven
+* **Documentação:** OpenAPI 3 / Swagger (SpringDoc)
+* **Build Tool:** Maven
 * **Containerização:** Docker / Docker Compose
+
+---
+
+## Recursos de Segurança
+
+* **Autenticação Stateless:** Emissão e validação de tokens JWT com expiração configurada.
+* **Proteção contra Brute Force (Rate Limiting):** Implementação do algoritmo *Token Bucket* com **Bucket4j** interceptando requisições em `/auth/login` (máximo de 5 tentativas por minuto por IP com retorno HTTP `429 Too Many Requests`).
+* **Criptografia de Senhas:** Hashing unidirecional com `BCryptPasswordEncoder`.
 
 ---
 
 ## Controle de Acesso (RBAC)
 
-O controle de acesso é validado nas rotas (`SecurityConfig`) e nos controllers via `@PreAuthorize`.
+O controle de acesso é validado tanto na cadeia de filtros (`SecurityConfig`) quanto nos controllers via anotações `@PreAuthorize`.
 
 * **ADMIN:** Acesso irrestrito ao sistema (gerencia usuários, projetos e tarefas).
 * **MANAGER:** Gerencia projetos e tarefas (criação, edição e exclusão); visualiza usuários da equipe.
@@ -41,12 +50,3 @@ DB_PASSWORD=taskmanager_dev_only
 
 # Segurança (JWT)
 JWT_SECRET=sua_chave_secreta_aqui
-
----
-
-## Execução Local
-
-### Pré-requisitos
-
-* Java 21 (JDK)
-* Docker e Docker Compose (recomendado) ou MySQL 8 instalado localmente

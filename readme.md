@@ -36,6 +36,13 @@ O controle de acesso é validado tanto na cadeia de filtros (`SecurityConfig`) q
 * **DEVELOPER / TESTER:** Visualiza projetos; edita status e detalhes de tarefas atribuídas.
 * **USER:** Visualização de leitura (*read-only*) em projetos e tarefas.
 
+### 🛡️ Homologação de Segurança e RBAC
+
+O relatório completo de validação da camada de segurança, políticas de CORS, controle de acesso baseado em papéis (RBAC) e proteção contra força bruta via Rate Limiting está documentado externamente:
+
+📄 **[Acessar Relatório Técnico de Homologação (Google Drive)](https://drive.google.com/file/d/1kwbEOP7f4VYRbPWbeoDnFSPURcFNlA1u/view?usp=sharing)**
+
+
 ---
 
 ## Variáveis de Ambiente

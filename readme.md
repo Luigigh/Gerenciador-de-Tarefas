@@ -4,6 +4,15 @@ Backend RESTful desenvolvido para gerenciamento de projetos, tarefas e usuários
 
 > Repositório do front-end (React + TypeScript): [Gerenciador-de-Tarefas-Web](https://github.com/Luigigh/Gerenciador-de-Tarefas-Web)
 
+### 🔑 Acesso de Demonstração (Recrutadores & Avaliadores)
+
+Para explorar a plataforma com permissões seguras de visualização (Role: `USER`):
+
+* **E-mail:** `user@example.com`
+* **Senha:** `123456`
+
+> *Nota: Usuários com o perfil `USER` possuem permissões restritas a leitura via RBAC.*
+
 ---
 
 ## Tecnologias

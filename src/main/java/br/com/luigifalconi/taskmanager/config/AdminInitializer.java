@@ -93,9 +93,9 @@ CommandLineRunner createInitialData(
         User user = createUserIfNotExists(
                 userRepository,
                 passwordEncoder,
-                "User",
-                "Teste",
-                "user@example.com",
+                "Recrutador",
+                "Convidado",
+                "recrutador@example.com", // ou manter user@example.com
                 "123456",
                 "0000000000000",
                 LocalDate.of(2000, 1, 1),

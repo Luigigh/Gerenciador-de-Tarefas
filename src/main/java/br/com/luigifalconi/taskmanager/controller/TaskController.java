@@ -1,7 +1,9 @@
 package br.com.luigifalconi.taskmanager.controller;
 
+import br.com.luigifalconi.taskmanager.dto.filter.TaskFilterDTO;
 import br.com.luigifalconi.taskmanager.dto.request.TaskRequestDTO;
 import br.com.luigifalconi.taskmanager.dto.request.TaskUpdateDTO;
+import br.com.luigifalconi.taskmanager.dto.response.PageResponseDTO;
 import br.com.luigifalconi.taskmanager.dto.response.TaskResponseDTO;
 import br.com.luigifalconi.taskmanager.entity.Task;
 import br.com.luigifalconi.taskmanager.mapper.TaskMapper;
@@ -10,11 +12,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/tasks")
@@ -47,26 +49,28 @@ public class TaskController {
         return taskMapper.toResponseDTO(savedTask);
     }
 
-    @Operation(summary = "Get all tasks")
+    @Operation(
+            summary = "Get tasks with optional filters and pagination",
+            description = """
+                    Todos os filtros são opcionais e combináveis. Exemplo:
+                    /tasks?status=IN_PROGRESS&priority=HIGH&responsibleId=2\
+                    &page=0&size=10&sort=expectedFinalDate,asc
+                    """
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Tasks found successfully")
     })
     @GetMapping
-    public List<TaskResponseDTO> getAllTasks() {
+    public PageResponseDTO<TaskResponseDTO> getTasks(
+            @ParameterObject TaskFilterDTO filter,
+            @ParameterObject Pageable pageable) {
 
-        List<Task> tasks = taskService.findAllTasks();
+        Page<Task> tasks = taskService.findTasks(filter, pageable);
 
-        List<TaskResponseDTO> response = new ArrayList<>();
-
-        for (Task task : tasks) {
-
-            response.add(
-                    taskMapper.toResponseDTO(task)
-            );
-
-        }
-
-        return response;
+        return PageResponseDTO.from(
+                tasks,
+                taskMapper::toResponseDTO
+        );
     }
 
     @Operation(summary = "Get task by id")

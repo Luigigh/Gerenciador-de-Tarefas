@@ -1,5 +1,6 @@
 package br.com.luigifalconi.taskmanager.service;
 
+import br.com.luigifalconi.taskmanager.dto.filter.TaskFilterDTO;
 import br.com.luigifalconi.taskmanager.dto.request.TaskUpdateDTO;
 import br.com.luigifalconi.taskmanager.entity.Project;
 import br.com.luigifalconi.taskmanager.entity.Task;
@@ -7,6 +8,13 @@ import br.com.luigifalconi.taskmanager.entity.User;
 import br.com.luigifalconi.taskmanager.repository.ProjectRepository;
 import br.com.luigifalconi.taskmanager.repository.TaskRepository;
 import br.com.luigifalconi.taskmanager.repository.UserRepository;
+import br.com.luigifalconi.taskmanager.specification.TaskSpecification;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +44,34 @@ public class TaskService {
     public List<Task> findAllTasks() {
 
         return taskRepository.findAll();
+
+    }
+
+    /* Busca tasks aplicando filtros dinâmicos e paginação.*/
+    public Page<Task> findTasks(TaskFilterDTO filter, Pageable pageable) {
+
+        Specification<Task> spec =
+                TaskSpecification.withFilters(filter);
+
+        return taskRepository.findAll(
+                spec,
+                applyDefaultSort(pageable)
+        );
+
+    }
+
+    /* Garante uma ordenação determinística.*/
+    private Pageable applyDefaultSort(Pageable pageable) {
+
+        if (pageable.getSort().isSorted()) {
+            return pageable;
+        }
+
+        return PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.ASC, "idTask")
+        );
 
     }
 
